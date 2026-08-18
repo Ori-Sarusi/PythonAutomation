@@ -1,0 +1,35 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Pytest / Test Artifacts
+.pytest_cache/
+reports/
+test-results/
+playwright-report/
+blob-report/
+coverage/
+.coverage
+htmlcov/
+
+# Playwright browser downloads / caches
+.playwright/
+
+# Environment variables & local configs
+.env
+*.local
+
+# IDE & OS specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
