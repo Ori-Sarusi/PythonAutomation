@@ -3,17 +3,16 @@ from pages.base_page import BasePage
 
 class AuthPage(BasePage):
     """
-    Page Object Model for the Authentication screen (Login & Register).
-    Encapsulates locators and user actions for both forms.
+    Page Object Model for Authentication (Login & Register) with step-by-step logging.
     """
     def __init__(self, page: Page):
         super().__init__(page)
         
-        # Tabs using get_by_role
+        # Tabs
         self.tab_login: Locator = page.get_by_role("button", name="Login")
         self.tab_register: Locator = page.get_by_role("button", name="Register")
 
-        # Login Form Elements (using built-in role / id / placeholder locators)
+        # Login Form Elements
         self.username_input: Locator = page.locator("#username")
         self.password_input: Locator = page.locator("#password")
         self.login_button: Locator = page.locator("#login-form").get_by_role("button", name="Login")
@@ -30,33 +29,35 @@ class AuthPage(BasePage):
 
     # --- Actions: Tab Navigation ---
     def switch_to_login_tab(self):
-        self.tab_login.click()
+        self.click(self.tab_login, "Login Tab")
 
     def switch_to_register_tab(self):
-        self.tab_register.click()
+        self.click(self.tab_register, "Register Tab")
 
     # --- Actions: Login Flow ---
     def fill_username(self, username: str):
-        self.username_input.fill(username)
+        self.fill(self.username_input, username, "Username Input")
 
     def fill_password(self, password: str):
-        self.password_input.fill(password)
+        self.fill(self.password_input, password, "Password Input")
 
     def click_login(self):
-        self.login_button.click()
+        self.click(self.login_button, "Login Submit Button")
 
     def login(self, username: str, password: str):
-        """High-level action to perform complete login."""
+        """High-level action to perform complete login with logging."""
+        self.logger.info(f"Initiating login sequence for user: {username}")
         self.fill_username(username)
         self.fill_password(password)
         self.click_login()
 
     # --- Actions: Registration Flow ---
     def register(self, username: str, email: str, password: str, confirm_password: str):
-        """High-level action to perform complete user registration."""
+        """High-level action to perform complete user registration with logging."""
+        self.logger.info(f"Initiating registration sequence for: {username} ({email})")
         self.switch_to_register_tab()
-        self.reg_username_input.fill(username)
-        self.reg_email_input.fill(email)
-        self.reg_password_input.fill(password)
-        self.reg_confirm_password_input.fill(confirm_password)
-        self.register_button.click()
+        self.fill(self.reg_username_input, username, "Reg Username")
+        self.fill(self.reg_email_input, email, "Reg Email")
+        self.fill(self.reg_password_input, password, "Reg Password")
+        self.fill(self.reg_confirm_password_input, confirm_password, "Reg Confirm Password")
+        self.click(self.register_button, "Create Account Button")
