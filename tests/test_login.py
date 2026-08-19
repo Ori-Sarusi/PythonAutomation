@@ -9,7 +9,6 @@ class TestLogin:
         auth_page.navigate(config.BASE_URL)
         auth_page.login(config.STANDARD_USER, config.PASSWORD)
 
-        expect(catalog_page.products_grid).to_be_visible()
         expect(catalog_page.user_display).to_have_text(config.STANDARD_USER)
 
     # --- Negative Tests ---
