@@ -37,6 +37,32 @@ const logoutBtn = document.getElementById("logout-btn");
 const cartBtn = document.getElementById("cart-btn");
 const cartCount = document.getElementById("cart-count");
 
+// Sections & Controls
+const productsSection = document.getElementById("products-section");
+const cartSection = document.getElementById("cart-section");
+const checkoutSection = document.getElementById("checkout-section");
+const confirmationSection = document.getElementById("confirmation-section");
+
+const searchInput = document.getElementById("search-input");
+const categoryFilter = document.getElementById("category-filter");
+const sortSelect = document.getElementById("sort-select");
+const productsGrid = document.getElementById("products-grid");
+
+const cartItemsContainer = document.getElementById("cart-items");
+const subtotalVal = document.getElementById("subtotal-val");
+const discountVal = document.getElementById("discount-val");
+const totalVal = document.getElementById("total-val");
+const couponInput = document.getElementById("coupon-input");
+const couponMsg = document.getElementById("coupon-msg");
+const applyCouponBtn = document.getElementById("apply-coupon-btn");
+
+const closeCartBtn = document.getElementById("close-cart-btn");
+const proceedCheckoutBtn = document.getElementById("proceed-checkout-btn");
+const checkoutForm = document.getElementById("checkout-form");
+const checkoutError = document.getElementById("checkout-error");
+const cancelCheckoutBtn = document.getElementById("cancel-checkout-btn");
+const backHomeBtn = document.getElementById("back-home-btn");
+
 // AUTH TABS TOGGLE
 tabLogin.addEventListener("click", () => {
   tabLogin.classList.add("active");
