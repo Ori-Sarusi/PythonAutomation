@@ -30,7 +30,21 @@ class CatalogPage(BasePage):
         self.category_filter.select_option(category)
 
     def sort_by(self, sort_value: str):
+        self.logger.info(f"Sorting products by: '{sort_value}'")
         self.sort_select.select_option(sort_value)
+
+    def get_all_product_titles(self) -> list[str]:
+        """Returns a list of all product title strings currently displayed."""
+        titles = self.page.locator("[data-test='product-title']").all_inner_texts()
+        self.logger.info(f"Retrieved {len(titles)} product titles: {titles}")
+        return titles
+
+    def get_all_product_prices(self) -> list[float]:
+        """Returns a list of all product prices as floats (stripped of '$')."""
+        price_texts = self.page.locator("[data-test='product-price']").all_inner_texts()
+        prices = [float(p.replace("$", "").strip()) for p in price_texts]
+        self.logger.info(f"Retrieved {len(prices)} product prices: {prices}")
+        return prices
 
     def add_to_cart(self, product_id: int):
         self.page.locator(f"[data-test='add-to-cart-{product_id}']").click()
