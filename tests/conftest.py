@@ -43,3 +43,9 @@ def auth_page(page: Page) -> AuthPage:
 def catalog_page(page: Page) -> CatalogPage:
     """Fixture providing a CatalogPage instance with step-by-step logging."""
     return CatalogPage(page)
+
+@pytest.fixture
+def cart_page(page: Page):
+    """Fixture providing a CartPage instance with step-by-step logging."""
+    from pages.cart_page import CartPage
+    return CartPage(page)
