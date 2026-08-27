@@ -61,3 +61,15 @@ class AuthPage(BasePage):
         self.fill(self.reg_password_input, password, "Reg Password")
         self.fill(self.reg_confirm_password_input, confirm_password, "Reg Confirm Password")
         self.click(self.register_button, "Create Account Button")
+
+    def get_email_validation_message(self) -> str:
+        """Returns the native HTML5 validation message from the browser tooltip."""
+        msg = self.reg_email_input.evaluate("el => el.validationMessage")
+        self.logger.info(f"Email field validation message: '{msg}'")
+        return msg
+
+    def is_email_valid(self) -> bool:
+        """Checks if the email input passes native browser validation."""
+        valid = self.reg_email_input.evaluate("el => el.checkValidity()")
+        self.logger.info(f"Email field validity state: {valid}")
+        return valid

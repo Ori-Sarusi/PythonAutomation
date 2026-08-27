@@ -46,6 +46,26 @@ class CatalogPage(BasePage):
         self.logger.info(f"Retrieved {len(prices)} product prices: {prices}")
         return prices
 
+    def get_products_count(self) -> int:
+        """Returns the total number of products currently displayed in the grid."""
+        return self.page.locator(".product-card").count()
+
+    def get_product_details_by_index(self, index: int) -> dict:
+        """Dynamically extracts name and price of product at specific card index."""
+        card = self.page.locator(".product-card").nth(index)
+        name = card.locator("[data-test='product-title']").inner_text()
+        price_text = card.locator("[data-test='product-price']").inner_text()
+        price = float(price_text.replace("$", "").strip())
+        return {"name": name, "price": price, "index": index}
+
+    def add_product_to_cart_by_index(self, index: int) -> dict:
+        """Dynamically reads product details and clicks its Add to Cart button."""
+        details = self.get_product_details_by_index(index)
+        card = self.page.locator(".product-card").nth(index)
+        btn = card.locator("button")
+        self.click(btn, f"Add to Cart for '{details['name']}' (${details['price']})")
+        return details
+
     def add_to_cart(self, product_id: int):
         self.page.locator(f"[data-test='add-to-cart-{product_id}']").click()
 
